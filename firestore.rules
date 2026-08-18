@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /triggerLogs/{logId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      match /customDopamineItems/{itemId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Presetari globale (Aperitiv/Fel Principal/Desert) - aceleasi pentru
+    // toti utilizatorii, populate din Cloud Function/seed script.
+    match /dopamineItemsCatalog/{itemId} {
+      allow read: if request.auth != null;
+      allow write: if false; // doar Cloud Functions / admin SDK
+    }
+  }
+}
