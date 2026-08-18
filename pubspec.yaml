@@ -12,6 +12,7 @@ dependencies:
 
   flutter_riverpod: ^2.5.0
   sqflite: ^2.3.0
+  sqflite_common_ffi: ^2.3.4
   path: ^1.9.0
   uuid: ^4.0.0
 
